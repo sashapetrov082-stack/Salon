@@ -23,8 +23,8 @@ async def test_availability_speed_10_masters_30_days(
     for st in staff:
         for d in range(30):
             day = NOW.date() + timedelta(days=d)
-            for h in (10, 12, 13, 15, 17):
-                start = at(day, h)
+            for hour in (10, 12, 13, 15, 17):
+                start = at(day, hour)
                 session.add(
                     Appointment(
                         salon_id=salon.id,
@@ -44,9 +44,10 @@ async def test_availability_speed_10_masters_30_days(
     await http.get(f"{base}/availability/days?service_id={service.id}", headers=h)  # прогрев
 
     timings = {}
+    tomorrow = NOW.date() + timedelta(days=1)
     for name, path in {
         "days": f"{base}/availability/days?service_id={service.id}",
-        "slots": f"{base}/availability/slots?service_id={service.id}&date={NOW.date() + timedelta(days=1)}",
+        "slots": f"{base}/availability/slots?service_id={service.id}&date={tomorrow}",
         "staff": f"{base}/staff?service_id={service.id}",
     }.items():
         started = time.perf_counter()

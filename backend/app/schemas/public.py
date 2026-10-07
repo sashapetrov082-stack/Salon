@@ -62,6 +62,7 @@ class StaffPublicOut(Out):
     price: int | None = None
     price_is_from: bool = False
     duration_min: int | None = None
+    service_ids: list[int] = []
 
 
 class DayAvailability(BaseModel):

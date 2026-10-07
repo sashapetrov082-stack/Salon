@@ -41,6 +41,8 @@ def setup_logging() -> None:
         lg = logging.getLogger(name)
         lg.handlers = []
         lg.propagate = True
+    # собственный access-лог пишет middleware (без query string — там бывают телефоны)
+    logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
     logging.getLogger("aiogram.event").setLevel(logging.WARNING)
 
 

@@ -62,6 +62,7 @@ async def test_showcase_services_staff(http: httpx.AsyncClient, world: World) ->
     # сейчас 08:00, min lead 60 мин, смена с 10:00 → ближайшее сегодня в 10:00
     assert staff[0]["nearest_slot"].startswith("2026-10-12T10:00")
     assert staff[0]["price"] == 1500
+    assert staff[0]["service_ids"] == [world.service.id]
 
     r = await http.get("/api/salons/nope", headers=h)
     assert r.status_code == 404

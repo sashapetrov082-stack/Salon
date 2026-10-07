@@ -156,6 +156,7 @@ async def get_staff(
         if not offers:
             continue
         out = StaffPublicOut.model_validate(staff)
+        out.service_ids = sorted(sv.id for _, sv in by_staff.get(staff.id, []))
         if service_id is not None:
             link, service = offers[0]
             offer = availability.StaffOffer(staff=staff, link=link)
